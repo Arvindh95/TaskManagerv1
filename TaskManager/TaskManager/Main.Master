@@ -4,16 +4,192 @@
 
 <html>
 <head runat="server">
-    <title></title>
+    <title>Task Manager</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+         <style>
+         /* Style for the clickable sections */
+             .nav-item {
+                 list-style: none;
+                 margin: 0;
+                 padding: 0;
+             }
+
+             .nav-link {
+                 display: block;
+                 width: 300px;
+                 text-align: left;
+                 padding-left: 20px;
+                 background-color: #212529;
+                 text-decoration: none;
+                 color: #FFF;
+                 transition: background-color 0.3s; /* Smooth transition for hover effect */
+             }
+
+             /* Hover effect */
+             .nav-link:hover {
+                 background-color: #FFFF; /* Change the background color on hover */
+             }
+
+             /* Custom class for the dropdown container */
+             .dropdown-custom {
+                 position: static; /* Remove position:relative, if present */
+                 z-index: 1000; /* Increase z-index value to make it appear above the navbar */
+             }
+
+             /* Increase the z-index for the dropdown menu */
+             .dropdown-custom .dropdown-menu {
+                 z-index: 1001; /* Ensure it appears above the dropdown container */
+             }
+
+               .power-button {
+                   transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+                   border-radius: 5px;
+                   border: none; /* Removes the border */
+                   outline: none; /* Removes the outline */
+                   background-color:#f8f9fa;
+                   padding:10px;
+                   
+                   /* Other styles for your button */
+               }
+
+               .power-button:hover {
+                   background-color: #000; /* Change the background color on hover */
+                   color: #FFF; /* Change the text/icon color on hover */
+               }
+
+               /* If you want to specifically change the icon color on hover */
+               .power-button:hover .bi-power {
+                   color: #FFF; /* Change the icon color on hover */
+               }
+
+               .menu-button {
+                 transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+                 /* Other styles for your button */
+               }
+
+             .menu-button:hover {
+                 background-color: #000; /* Change the background color on hover */
+                 color: #FFF; /* Change the text/icon color on hover */
+             }
+
+             /* If you want to specifically change the icon color on hover */
+             .menu-button:hover .bi-list {
+                 color: #FFF; /* Change the icon color on hover */
+             }
+
+               .menu-links {
+                    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+                    background-color: #212529;
+                    color:#fff;
+                    border-radius: 5px;
+                    border: none; /* Removes the border */
+                    outline: none; /* Removes the outline */
+                    padding:10px;
+                    width:350px;
+                    /* Other styles for your button */
+                }
+
+                .menu-links:hover {
+                    background-color: #fff; /* Change the background color on hover */
+                    color: #212529; /* Change the text/icon color on hover */
+                }
+
+
+             .close-button {
+               background-color: #212529; /* Change background color */
+               border: none; /* Remove border */
+               outline: none; /* Remove outline */
+               color: #FFF; /* Change text/icon color */
+             }
+
+           .close-button:focus {
+               outline: none; /* Remove focus outline */
+               box-shadow: none; /* Remove focus box shadow if any */
+           }
+
+           .close-button .bi {
+               color: #FFF; /* Ensure the icon color is white */
+           }
+           .username_label{
+               font-size:20px;
+                font-weight:bold;
+           }
+
+             </style>
+   
+    
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+ <form id="form1" runat="server" enctype="multipart/form-data">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <!-- Hamburger Button -->
+                <button class="btn menu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                  <i class="bi bi-list"></i>
+                </button>
+                    <div class="offcanvas offcanvas-start text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+              <div class="offcanvas-header">
+                <asp:Label ID="Label3" runat="server" Text="" CssClass="username_label"></asp:Label> <br /> 
+                  <div data-bs-theme="light">
+                <button type="button" class="btn close-button btn-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-x-lg"></i></button><br />
+                      </div>
+              </div>
+                      
+                 <div class="offcanvas-body">
+                      
+                     <div>
+                         
+                         <ul class="navbar-nav">
+                                <!-- Navigation Links -->
+                                <li class="nav-item">
+                                    <asp:Button ID="home" runat="server" CssClass="menu-links" Text="Home" OnClick="home_Click" />
+                                </li>
+                                <li class="nav-item">
+                                    <asp:Button ID="adduser" runat="server" CssClass="menu-links" Text="Add User" OnClick="adduser_Click" />
+                                </li>
+                                <li class="nav-item">
+                                    <asp:Button ID="rolemanagement" runat="server" CssClass="menu-links" Text="Role Management" OnClick="rolemanagement_Click" />
+                                </li>
+                                <li class="nav-item">
+                                    <asp:Button ID="assigntask" runat="server" CssClass="menu-links" Text="Assign Task" OnClick="assigntask_Click" />
+                                </li>
+                              <li class="nav-item">
+                                     <asp:Button ID="manageusers" runat="server" CssClass="menu-links" Text="Users Management" OnClick="manageusers_Click" />
+                                </li>
+                             <li class="nav-item">
+                                   <asp:Button ID="Button1" runat="server" CssClass="menu-links" Text="Test Adding Button"  />
+                              </li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                <!-- Navbar Brand or Logo -->
+                <a class="navbar-brand" href="#">Task Manager</a>
+
+                <!-- Navbar Links -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <div>
+                            <%--<asp:Button ID="Loginbtn" CssClass="power-button" runat="server" Text="🔐"/>--%>
+                            <asp:Button ID="Logoutbtn" CssClass="power-button" runat="server" Text="Logout 🔓" OnClick="logoutButton_Click"/>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
-    </form>
+     </form>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
