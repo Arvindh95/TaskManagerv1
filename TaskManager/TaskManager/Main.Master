@@ -165,9 +165,7 @@
                              <li class="nav-item">
                                    <asp:Button ID="Button1" runat="server" CssClass="menu-links" Text="Test Adding Button"  />
                               </li>
-                             <li class="nav-item">
-                                  <asp:Button ID="Button2" runat="server" CssClass="menu-links" Text="Test Adding Button 2"  />
-                             </li>
+                             <%--//Removed button 2--%>
                             </ul>
                         </div>
                       </div>
